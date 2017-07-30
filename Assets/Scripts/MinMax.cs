@@ -10,4 +10,9 @@ public struct MinMax
     {
         return Random.Range(min, max);
     }
+
+    public float Lerp(float t)
+    {
+        return Mathf.Lerp(min, max, t);
+    }
 }

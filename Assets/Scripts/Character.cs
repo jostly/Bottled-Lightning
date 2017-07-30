@@ -61,7 +61,7 @@ public class Character : MonoBehaviour
     {
         var c = collision.gameObject.GetComponent<Carryable>();
         var rb = c.GetComponent<Rigidbody2D>();
-        if (c != null && rb != null && carrying == null && rb.velocity.magnitude <= maxCatchVelocity)
+        if (c != null && rb != null && carrying == null && Mathf.Abs(rb.velocity.y) <= maxCatchVelocity)
         {
             waitingForPickup = false;
             carrying = c;

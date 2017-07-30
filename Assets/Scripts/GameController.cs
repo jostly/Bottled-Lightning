@@ -13,9 +13,13 @@ public class GameController : MonoBehaviour
     public int maxAllowedWarnings;
     public Character[] characters;
 
+    public MinMax conveyorSpeeds;
+    public float timeToMaxSpeed;
+
     private int score;
     private int warnings;
     private bool gameOver;
+    private float startTime;
 
     public static GameController Instance { get; set; }
 
@@ -88,6 +92,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        startTime = Time.time;
         DeepSetState(gameOverLabel, false);
         warnings = 0;
         score = 0;
@@ -101,6 +106,25 @@ public class GameController : MonoBehaviour
         if (gameOver && Input.GetKeyDown(KeyCode.Space))
         {
             SceneManager.LoadScene("Intro");
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        float conveyorSpeed = conveyorSpeeds.Lerp((Time.time - startTime) / timeToMaxSpeed);
+        foreach (var obj in GameObject.FindGameObjectsWithTag("Powered Belt"))
+        {
+            var c = obj.GetComponent<SurfaceEffector2D>();
+            if (c != null)
+            {
+                if (c.speed > 0f)
+                {
+                    c.speed = conveyorSpeed;
+                } else if (c.speed < 0f)
+                {
+                    c.speed = -conveyorSpeed;
+                }
+            }
         }
     }
 

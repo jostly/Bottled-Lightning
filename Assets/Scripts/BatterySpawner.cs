@@ -5,8 +5,9 @@ using UnityEngine;
 public class BatterySpawner : MonoBehaviour
 {
     public Battery batteryPrefab;
-    public float minTimeBetweenSpawns;
-    public float maxTimeBetweenSpawns;
+    public MinMax timeBetweenSpawns;
+    public MinMax difficultyFactor;
+    public float timeToMaxDifficulty;
 
     private int spawnBlocked;
 
@@ -28,6 +29,7 @@ public class BatterySpawner : MonoBehaviour
 
     private IEnumerator Spawn()
     {
+        float startTime = Time.time;
         while (true)
         {
             while (spawnBlocked > 0)
@@ -35,7 +37,8 @@ public class BatterySpawner : MonoBehaviour
                 yield return new WaitForFixedUpdate();
             }
             Instantiate(batteryPrefab, transform.position, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(minTimeBetweenSpawns, maxTimeBetweenSpawns));
+            float diff = difficultyFactor.Lerp((Time.time - startTime) / timeToMaxDifficulty);
+            yield return new WaitForSeconds(timeBetweenSpawns.Rnd() / diff);
         }
     }
 }

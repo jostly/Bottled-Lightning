@@ -218,6 +218,10 @@ MonoBehaviour:
   characters:
   - {fileID: 1726559376}
   - {fileID: 1604851065}
+  conveyorSpeeds:
+    min: 3
+    max: 3
+  timeToMaxSpeed: 600
 --- !u!4 &39776543
 Transform:
   m_ObjectHideFlags: 0
@@ -4357,7 +4361,7 @@ GameObject:
   - component: {fileID: 1283678596}
   m_Layer: 0
   m_Name: Battery Spawn
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4389,8 +4393,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   batteryPrefab: {fileID: 114565014718969940, guid: cc1eb38a216fee147ab31fdaf30fd153,
     type: 2}
-  minTimeBetweenSpawns: 8
-  maxTimeBetweenSpawns: 12
+  timeBetweenSpawns:
+    min: 8
+    max: 12
+  difficultyFactor:
+    min: 1
+    max: 4
+  timeToMaxDifficulty: 600
 --- !u!61 &1283678595
 BoxCollider2D:
   m_ObjectHideFlags: 0

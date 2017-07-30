@@ -32,6 +32,7 @@ public class GameController : MonoBehaviour
             {
                 AddScore(-battery.scoreValue);
             }
+            GetComponent<AudioSource>().Play();
             AddWarning();
             Destroy(obj);
         }

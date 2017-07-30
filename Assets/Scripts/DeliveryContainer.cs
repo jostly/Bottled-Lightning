@@ -70,6 +70,7 @@ public class DeliveryContainer : BatteryContainer
     private void Deliver()
     {
         GetComponent<Rigidbody2D>().velocity = Vector2.right * deliveryVelocity;
+        GetComponent<AudioSource>().Play();
     }
 
     private void OnTriggerExit2D(Collider2D collision)

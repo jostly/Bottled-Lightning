@@ -66,6 +66,7 @@ public class Character : MonoBehaviour
             waitingForPickup = false;
             carrying = c;
             c.Carry();
+            GetComponent<AudioSource>().Play();
         }
     }
 

@@ -6,6 +6,7 @@ public class Replacer : MonoBehaviour
 {
     public string inputTag;
     public Replaceable output;
+    public Rotator[] gears;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,6 +25,11 @@ public class Replacer : MonoBehaviour
             }
             
             Destroy(obj);
+
+            foreach (var gear in gears)
+            {
+                gear.Trigger();
+            }
         }
     }
 }

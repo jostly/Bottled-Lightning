@@ -9,6 +9,8 @@ public class Lightning : MonoBehaviour
     public Light lightningLight;
     public float strikeIntensity;
     public float strikeDuration;
+    public GameObject strikePrefab;
+    public Vector3 strikeOffset;
 
     private AudioSource audioSource;
     private List<Battery> batteries;
@@ -29,6 +31,13 @@ public class Lightning : MonoBehaviour
             var endIntensity = 0f;
             var startTime = Time.time;
             ChargeBatteries();
+            var strikes = new List<GameObject>();
+            foreach (var battery in batteries)
+            {
+                var pos = battery.transform.position + strikeOffset;
+                var strike = Instantiate(strikePrefab, pos, Quaternion.identity);
+                strikes.Add(strike);
+            }
             do
             {
                 var intensity = Mathf.Lerp(strikeIntensity, endIntensity, (Time.time - startTime) / strikeDuration);
@@ -36,6 +45,10 @@ public class Lightning : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             } while (Time.time <= startTime + strikeDuration);
             lightningLight.intensity = endIntensity;
+            foreach (var strike in strikes)
+            {
+                Destroy(strike);
+            }
         }
     }
 
